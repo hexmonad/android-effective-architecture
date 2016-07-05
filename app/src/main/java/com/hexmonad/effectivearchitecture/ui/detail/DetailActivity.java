@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
 
-public class DetailActivity extends BaseActivity {
+public class DetailActivity extends BaseActivity implements DetailView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

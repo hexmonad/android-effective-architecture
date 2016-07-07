@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
+import com.hexmonad.effectivearchitecture.ui.base.Navigator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,13 @@ public class MainActivity extends BaseActivity implements MainView {
         ButterKnife.bind(this);
 
         itemsAdapter = new ItemsAdapter();
+        itemsAdapter.setOnItemClickListener(new ItemsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String itemData) {
+                Navigator.navigateToDetailPage(MainActivity.this, itemData);
+            }
+        });
+
         recyclerView.setAdapter(itemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

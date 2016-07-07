@@ -16,6 +16,7 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
 
     private List<String> items = Arrays.asList("Item 1", "Item 2", "Item 3");
+    private OnItemClickListener onItemClickListener;
 
     public ItemsAdapter() {
 
@@ -25,7 +26,17 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
     public ItemsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.list_item, parent, false);
-        return new ItemsViewHolder(itemView);
+        final ItemsViewHolder itemsViewHolder = new ItemsViewHolder(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int itemPosition = itemsViewHolder.getAdapterPosition();
+                onItemClickListener.onItemClick(items.get(itemPosition));
+            }
+        });
+
+        return itemsViewHolder;
     }
 
     @Override
@@ -36,5 +47,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String itemData);
     }
 }

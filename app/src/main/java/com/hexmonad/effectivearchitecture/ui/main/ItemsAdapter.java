@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hexmonad.effectivearchitecture.R;
+import com.hexmonad.effectivearchitecture.data.model.Item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +16,11 @@ import java.util.List;
  */
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
 
-    private List<String> items = Arrays.asList("Item 1", "Item 2", "Item 3");
+    private List<Item> items;
     private OnItemClickListener onItemClickListener;
 
     public ItemsAdapter() {
-
+        items = new ArrayList<>();
     }
 
     @Override
@@ -49,11 +50,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsViewHolder> {
         return items.size();
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String itemData);
+        void onItemClick(Item itemData);
     }
 }

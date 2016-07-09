@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hexmonad.effectivearchitecture.R;
+import com.hexmonad.effectivearchitecture.data.model.Item;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(String item) {
-        titleTextView.setText(item);
+    public void bind(Item item) {
+        titleTextView.setText(item.getTitle());
     }
 }

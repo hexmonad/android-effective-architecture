@@ -22,6 +22,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     @BindView(R.id.detail_title_text_view) TextView titleTextView;
 
+    private DetailPresenter detailPresenter;
+
     public static Intent getCallingIntent(Context context, String itemData) {
         Intent callingIntent = new Intent(context, DetailActivity.class);
         callingIntent.putExtra(EXTRA_ITEM_DATA, itemData);
@@ -34,13 +36,22 @@ public class DetailActivity extends BaseActivity implements DetailView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
+        detailPresenter = new DetailPresenter();
+        detailPresenter.bindView(this);
+
         String itemData = getIntent().getStringExtra(EXTRA_ITEM_DATA);
-        showItemDetails(itemData);
+        detailPresenter.loadItemDetails(itemData);
     }
 
-    private void showItemDetails(String itemData) {
-        if (itemData != null) {
-            titleTextView.setText(itemData);
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        detailPresenter.unbindView();
+    }
+
+    @Override
+    public void showItemDetails(String itemData) {
+        titleTextView.setText(itemData);
     }
 }

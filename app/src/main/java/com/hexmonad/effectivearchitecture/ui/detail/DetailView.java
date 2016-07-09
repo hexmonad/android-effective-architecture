@@ -5,4 +5,6 @@ package com.hexmonad.effectivearchitecture.ui.detail;
  */
 public interface DetailView {
 
+    void showItemDetails(String item);
+
 }

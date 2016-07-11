@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.hexmonad.effectivearchitecture.R;
+import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
 
 import butterknife.BindView;
@@ -24,9 +25,9 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     private DetailPresenter detailPresenter;
 
-    public static Intent getCallingIntent(Context context, String itemData) {
+    public static Intent getCallingIntent(Context context, Item item) {
         Intent callingIntent = new Intent(context, DetailActivity.class);
-        callingIntent.putExtra(EXTRA_ITEM_DATA, itemData);
+        callingIntent.putExtra(EXTRA_ITEM_DATA, item);
         return callingIntent;
     }
 
@@ -39,8 +40,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
         detailPresenter = new DetailPresenter();
         detailPresenter.bindView(this);
 
-        String itemData = getIntent().getStringExtra(EXTRA_ITEM_DATA);
-        detailPresenter.loadItemDetails(itemData);
+        Item item = getIntent().getParcelableExtra(EXTRA_ITEM_DATA);
+        detailPresenter.loadItemDetails(item);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     }
 
     @Override
-    public void showItemDetails(String itemData) {
-        titleTextView.setText(itemData);
+    public void showItemDetails(Item item) {
+        titleTextView.setText(item.getTitle());
     }
 }

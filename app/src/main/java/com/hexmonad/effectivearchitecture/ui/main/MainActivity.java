@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity implements MainView {
         itemsAdapter.setOnItemClickListener(new ItemsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Item itemData) {
-                Navigator.navigateToDetailPage(MainActivity.this, itemData.getTitle());
+                Navigator.navigateToDetailPage(MainActivity.this, itemData);
             }
         });
 

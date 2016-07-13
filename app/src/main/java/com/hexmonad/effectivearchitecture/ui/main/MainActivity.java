@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerView.setAdapter(itemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mainPresenter = new MainPresenter();
+        mainPresenter = new MainPresenter(EffectiveArchApplication.get(this).getRestApi());
         mainPresenter.bindView(this);
         mainPresenter.loadItems();
     }

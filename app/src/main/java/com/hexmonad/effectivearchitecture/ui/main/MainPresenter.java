@@ -7,8 +7,8 @@ public class MainPresenter extends Presenter<MainView> {
 
     private final RestApi restApi;
 
-    public MainPresenter() {
-        restApi = new RestApi();
+    public MainPresenter(RestApi restApi) {
+        this.restApi = restApi;
     }
 
     public void loadItems() {

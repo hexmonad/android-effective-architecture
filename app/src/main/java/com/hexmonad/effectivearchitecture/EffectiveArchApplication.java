@@ -9,6 +9,8 @@ import android.content.Context;
 
 import com.hexmonad.effectivearchitecture.data.api.RestApi;
 
+import timber.log.Timber;
+
 /**
  * EffectiveArchApplication
  */
@@ -20,7 +22,11 @@ public class EffectiveArchApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        restApi = new RestApi();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
+
+        restApi = RestApi.Factory.createRestApi();
     }
 
     public static EffectiveArchApplication get(Context context) {

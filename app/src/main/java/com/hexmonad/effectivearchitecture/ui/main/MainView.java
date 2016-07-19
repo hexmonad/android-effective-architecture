@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface MainView {
 
+    void showLoadingProgress(boolean show);
     void showItems(List<Item> items);
+    void showItemsLoadingError();
 
 }

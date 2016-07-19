@@ -53,6 +53,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     @Override
     public void showItemDetails(Item item) {
-        titleTextView.setText(item.getTitle());
+        titleTextView.setText(item.getName());
     }
 }

@@ -23,6 +23,6 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Item item) {
-        titleTextView.setText(item.getTitle());
+        titleTextView.setText(item.getName());
     }
 }

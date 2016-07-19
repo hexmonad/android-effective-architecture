@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidEffectiveArchitecture</string>
+    <string name="main_error_items_loading">Failed to load items</string>
 </resources>

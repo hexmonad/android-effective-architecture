@@ -7,6 +7,8 @@ package com.hexmonad.effectivearchitecture.ui.main;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements MainView {
 
     @BindView(R.id.main_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.main_progress_bar) View progressBar;
 
     private MainPresenter mainPresenter;
     private ItemsAdapter itemsAdapter;
@@ -56,8 +59,18 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
+    public void showLoadingProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
     public void showItems(List<Item> items) {
         itemsAdapter.setItems(items);
         itemsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showItemsLoadingError() {
+        Toast.makeText(this, R.string.main_error_items_loading, Toast.LENGTH_SHORT).show();
     }
 }

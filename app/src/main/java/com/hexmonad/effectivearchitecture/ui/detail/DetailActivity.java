@@ -7,10 +7,14 @@ package com.hexmonad.effectivearchitecture.ui.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.data.model.Item;
+import com.hexmonad.effectivearchitecture.data.model.ItemDetails;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
 
 import butterknife.BindView;
@@ -22,6 +26,11 @@ public class DetailActivity extends BaseActivity implements DetailView {
     private static final String EXTRA_ITEM_DATA = "com.hexmonad.effectivearch.extras.EXTRA_ITEM_DATA";
 
     @BindView(R.id.detail_title_text_view) TextView titleTextView;
+    @BindView(R.id.detail_height_text_view) TextView heightTextView;
+    @BindView(R.id.detail_weight_text_view) TextView weightTextView;
+    @BindView(R.id.detail_type_text_view) TextView typeTextView;
+    @BindView(R.id.detail_progress_bar) View progressBar;
+    @BindView(R.id.detail_info_layout) View infoLayout;
 
     private DetailPresenter detailPresenter;
 
@@ -37,7 +46,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        detailPresenter = new DetailPresenter();
+        detailPresenter = new DetailPresenter(EffectiveArchApplication.get(this).getRestApi());
         detailPresenter.bindView(this);
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM_DATA);
@@ -52,7 +61,21 @@ public class DetailActivity extends BaseActivity implements DetailView {
     }
 
     @Override
-    public void showItemDetails(Item item) {
-        titleTextView.setText(item.getName());
+    public void showLoadingProgress(boolean show) {
+        infoLayout.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showItemDetails(ItemDetails itemDetails) {
+        titleTextView.setText(itemDetails.getName());
+        heightTextView.setText(String.valueOf(itemDetails.getHeight()));
+        weightTextView.setText(String.valueOf(itemDetails.getWeight()));
+        typeTextView.setText(itemDetails.getType());
+    }
+
+    @Override
+    public void showItemsLoadingError() {
+        Toast.makeText(this, R.string.detail_error_item_loading, Toast.LENGTH_SHORT).show();
     }
 }

@@ -5,17 +5,28 @@ import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.data.model.ItemDetails;
 import com.hexmonad.effectivearchitecture.ui.base.Presenter;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.SingleSubscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class DetailPresenter extends Presenter<DetailView> {
 
     private final RestApi restApi;
+    private Subscription subscription;
 
     public DetailPresenter(RestApi restApi) {
         this.restApi = restApi;
+    }
+
+    @Override
+    public void unbindView() {
+        super.unbindView();
+
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     public void loadItemDetails(final Item item) {
@@ -26,27 +37,23 @@ public class DetailPresenter extends Presenter<DetailView> {
 
         getView().showLoadingProgress(true);
 
-        Call<ItemDetails> apiCall = restApi.getItemDetails(item.getId());
+        subscription = restApi.getItemDetails(item.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleSubscriber<ItemDetails>() {
+                    @Override
+                    public void onSuccess(ItemDetails itemDetails) {
+                        getView().showLoadingProgress(false);
+                        getView().showItemDetails(itemDetails);
+                    }
 
-        apiCall.enqueue(new Callback<ItemDetails>() {
-            @Override
-            public void onResponse(Call<ItemDetails> call, Response<ItemDetails> response) {
-                getView().showLoadingProgress(false);
-                if (response.isSuccessful()) {
-                    getView().showItemDetails(response.body());
-                } else {
-                    getView().showItemsLoadingError();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ItemDetails> call, Throwable t) {
-                Timber.e(t.toString());
-                getView().showLoadingProgress(false);
-                getView().showItemsLoadingError();
-            }
-        });
-
+                    @Override
+                    public void onError(Throwable error) {
+                        Timber.e(error.toString());
+                        getView().showLoadingProgress(false);
+                        getView().showItemsLoadingError();
+                    }
+                });
     }
-    
+
 }

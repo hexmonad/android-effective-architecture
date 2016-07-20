@@ -8,13 +8,14 @@ import com.hexmonad.effectivearchitecture.data.model.Items;
 import java.util.Arrays;
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.http.Path;
 import retrofit2.mock.BehaviorDelegate;
 import retrofit2.mock.MockRetrofit;
 import retrofit2.mock.NetworkBehavior;
+import rx.Single;
 
 /**
  * This is a dummy implementation of the RestApi.
@@ -36,13 +37,13 @@ public class MockRestApi implements RestApi {
     }
 
     @Override
-    public Call<Items> getItems() {
+    public Single<Items> getItems() {
         Items items = new Items(TEST_ITEMS);
         return delegate.returningResponse(items).getItems();
     }
 
     @Override
-    public Call<ItemDetails> getItemDetails(@Path("itemId") int itemId) {
+    public Single<ItemDetails> getItemDetails(@Path("itemId") int itemId) {
         return delegate.returningResponse(TEST_ITEM_DETAILS).getItemDetails(itemId);
     }
 
@@ -51,6 +52,7 @@ public class MockRestApi implements RestApi {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(RestApi.BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create(new ObjectMapper()))
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
 
             NetworkBehavior behavior = NetworkBehavior.create();

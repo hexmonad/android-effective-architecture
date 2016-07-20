@@ -1,17 +1,15 @@
 package com.hexmonad.effectivearchitecture.ui.main;
 
+import com.hexmonad.effectivearchitecture.data.api.MockRestApi;
 import com.hexmonad.effectivearchitecture.data.api.RestApi;
-import com.hexmonad.effectivearchitecture.data.model.Item;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class MainPresenterTest {
 
@@ -21,7 +19,7 @@ public class MainPresenterTest {
 
     @Before
     public void beforeEachTest() {
-        restApi = mock(RestApi.class);
+        restApi = MockRestApi.Factory.createRestApi();
         mainPresenter = new MainPresenter(restApi);
         mainView = mock(MainView.class);
 
@@ -30,13 +28,12 @@ public class MainPresenterTest {
 
     @Test
     public void loadItems_shouldSendDataToTheView() {
-        List<Item> testItems = Arrays.asList(new Item("One"), new Item("Two"), new Item("Three"));
-
-        when(restApi.getItems()).thenReturn(testItems);
-
         mainPresenter.loadItems();
 
-        verify(mainView).showItems(testItems);
-        //verify(mainView, never()).showItems(testItems);
+        verify(mainView).showLoadingProgress(true);
+        verify(mainView, timeout(5000)).showLoadingProgress(false);
+        verify(mainView, timeout(5000)).showItems(MockRestApi.TEST_ITEMS);
+        verify(mainView, never()).showItemsLoadingError();
     }
+
 }

@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.data.model.Item;
@@ -29,6 +31,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @BindView(R.id.detail_height_text_view) TextView heightTextView;
     @BindView(R.id.detail_weight_text_view) TextView weightTextView;
     @BindView(R.id.detail_type_text_view) TextView typeTextView;
+    @BindView(R.id.detail_front_image_view) ImageView frontImageView;
+    @BindView(R.id.detail_back_image_view) ImageView backImageView;
     @BindView(R.id.detail_progress_bar) View progressBar;
     @BindView(R.id.detail_info_layout) View infoLayout;
 
@@ -72,6 +76,14 @@ public class DetailActivity extends BaseActivity implements DetailView {
         heightTextView.setText(String.valueOf(itemDetails.getHeight()));
         weightTextView.setText(String.valueOf(itemDetails.getWeight()));
         typeTextView.setText(itemDetails.getType());
+
+        Glide.with(this)
+                .load(itemDetails.getSprites().getFrontImageUrl())
+                .into(frontImageView);
+
+        Glide.with(this)
+                .load(itemDetails.getSprites().getBackImageUrl())
+                .into(backImageView);
     }
 
     @Override

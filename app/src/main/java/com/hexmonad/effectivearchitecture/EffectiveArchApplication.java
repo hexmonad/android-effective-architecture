@@ -7,7 +7,9 @@ package com.hexmonad.effectivearchitecture;
 import android.app.Application;
 import android.content.Context;
 
-import com.hexmonad.effectivearchitecture.data.api.RestApi;
+import com.hexmonad.effectivearchitecture.di.component.ApplicationComponent;
+import com.hexmonad.effectivearchitecture.di.component.DaggerApplicationComponent;
+import com.hexmonad.effectivearchitecture.di.module.ApplicationModule;
 
 import timber.log.Timber;
 
@@ -16,25 +18,28 @@ import timber.log.Timber;
  */
 public class EffectiveArchApplication extends Application {
 
-    private RestApi restApi;
+    private ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule())
+                .build();
+
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
 
-        restApi = RestApi.Factory.createRestApi();
     }
 
     public static EffectiveArchApplication get(Context context) {
         return (EffectiveArchApplication) context.getApplicationContext();
     }
 
-    public RestApi getRestApi() {
-        return restApi;
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
 }

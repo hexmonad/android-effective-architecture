@@ -18,6 +18,8 @@ import com.hexmonad.effectivearchitecture.ui.base.Navigator;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,7 +28,7 @@ public class MainActivity extends BaseActivity implements MainView {
     @BindView(R.id.main_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.main_progress_bar) View progressBar;
 
-    private MainPresenter mainPresenter;
+    @Inject MainPresenter mainPresenter;
     private ItemsAdapter itemsAdapter;
 
     @Override
@@ -34,6 +36,8 @@ public class MainActivity extends BaseActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        EffectiveArchApplication.get(this).getApplicationComponent().inject(this);
 
         itemsAdapter = new ItemsAdapter();
         itemsAdapter.setOnItemClickListener(new ItemsAdapter.OnItemClickListener() {
@@ -46,7 +50,6 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerView.setAdapter(itemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mainPresenter = new MainPresenter(EffectiveArchApplication.get(this).getRestApi());
         mainPresenter.bindView(this);
         mainPresenter.loadItems();
     }

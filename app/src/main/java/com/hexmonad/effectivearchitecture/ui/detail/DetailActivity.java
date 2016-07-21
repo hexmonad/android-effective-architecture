@@ -19,6 +19,8 @@ import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.data.model.ItemDetails;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,7 +38,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
     @BindView(R.id.detail_progress_bar) View progressBar;
     @BindView(R.id.detail_info_layout) View infoLayout;
 
-    private DetailPresenter detailPresenter;
+    @Inject DetailPresenter detailPresenter;
 
     public static Intent getCallingIntent(Context context, Item item) {
         Intent callingIntent = new Intent(context, DetailActivity.class);
@@ -50,7 +52,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        detailPresenter = new DetailPresenter(EffectiveArchApplication.get(this).getRestApi());
+        EffectiveArchApplication.get(this).getApplicationComponent().inject(this);
+
         detailPresenter.bindView(this);
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM_DATA);

@@ -5,6 +5,8 @@ import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.data.model.ItemDetails;
 import com.hexmonad.effectivearchitecture.ui.base.Presenter;
 
+import javax.inject.Inject;
+
 import rx.SingleSubscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -16,6 +18,7 @@ public class DetailPresenter extends Presenter<DetailView> {
     private final RestApi restApi;
     private Subscription subscription;
 
+    @Inject
     public DetailPresenter(RestApi restApi) {
         this.restApi = restApi;
     }

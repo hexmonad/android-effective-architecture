@@ -25,7 +25,7 @@ public class EffectiveArchApplication extends Application {
         super.onCreate();
 
         applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule())
+                .applicationModule(new ApplicationModule(this))
                 .build();
 
         if (BuildConfig.DEBUG) {

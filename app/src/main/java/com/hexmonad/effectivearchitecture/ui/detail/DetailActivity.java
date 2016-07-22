@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.data.model.ItemDetails;
@@ -52,7 +51,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        EffectiveArchApplication.get(this).getApplicationComponent().inject(this);
+        getActivityComponent().inject(this);
 
         detailPresenter.bindView(this);
 

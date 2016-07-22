@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.hexmonad.effectivearchitecture.EffectiveArchApplication;
 import com.hexmonad.effectivearchitecture.R;
 import com.hexmonad.effectivearchitecture.data.model.Item;
 import com.hexmonad.effectivearchitecture.ui.base.BaseActivity;
@@ -37,7 +36,7 @@ public class MainActivity extends BaseActivity implements MainView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        EffectiveArchApplication.get(this).getApplicationComponent().inject(this);
+        getActivityComponent().inject(this);
 
         itemsAdapter = new ItemsAdapter();
         itemsAdapter.setOnItemClickListener(new ItemsAdapter.OnItemClickListener() {

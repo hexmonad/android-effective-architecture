@@ -2,6 +2,7 @@
     <string name="app_name">AndroidEffectiveArchitecture</string>
 
     <string name="main_error_items_loading">Failed to load items</string>
+    <string name="main_button_retry">Retry</string>
 
     <string name="detail_error_item_loading">Failed to load item details</string>
     <string name="detail_item_height">Height: </string>

@@ -1,115 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.detail.DetailActivity">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="3dp">
 
-    <LinearLayout
-        android:id="@+id/detail_title_layout"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/detail_front_image_view"
-            android:layout_width="@dimen/detail_image_size"
-            android:layout_height="@dimen/detail_image_size"
-            android:scaleType="centerInside"/>
-
-        <TextView
-            android:id="@+id/detail_title_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="10dp"
-            android:textSize="20sp"/>
-
-        <ImageView
-            android:id="@+id/detail_back_image_view"
-            android:layout_width="@dimen/detail_image_size"
-            android:layout_height="@dimen/detail_image_size"
-            android:scaleType="centerInside"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/detail_info_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detail_title_layout"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:paddingBottom="@dimen/detail_info_card_padding_bottom"
+        android:paddingEnd="@dimen/detail_info_card_padding"
+        android:paddingStart="@dimen/detail_info_card_padding"
+        android:paddingTop="@dimen/detail_info_card_padding">
 
         <LinearLayout
+            android:id="@+id/detail_title_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/detail_front_image_view"
+                android:layout_width="@dimen/detail_image_size"
+                android:layout_height="@dimen/detail_image_size"
+                android:scaleType="centerInside"/>
 
             <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/detail_item_height"
-                android:textSize="@dimen/detail_default_text_size"/>
-
-            <TextView
-                android:id="@+id/detail_height_text_view"
+                android:id="@+id/detail_title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/detail_default_text_size"/>
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:textSize="20sp"/>
+
+            <ImageView
+                android:id="@+id/detail_back_image_view"
+                android:layout_width="@dimen/detail_image_size"
+                android:layout_height="@dimen/detail_image_size"
+                android:scaleType="centerInside"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/detail_info_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_below="@id/detail_title_layout"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/detail_item_weight"
-                android:textSize="@dimen/detail_default_text_size"/>
-
-            <TextView
-                android:id="@+id/detail_weight_text_view"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/detail_default_text_size"/>
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_item_height"
+                    android:textSize="@dimen/detail_default_text_size"/>
+
+                <TextView
+                    android:id="@+id/detail_height_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/detail_default_text_size"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_item_weight"
+                    android:textSize="@dimen/detail_default_text_size"/>
+
+                <TextView
+                    android:id="@+id/detail_weight_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/detail_default_text_size"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_item_type"
+                    android:textSize="@dimen/detail_default_text_size"/>
+
+                <TextView
+                    android:id="@+id/detail_type_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/detail_default_text_size"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <ProgressBar
+            android:id="@+id/detail_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/detail_item_type"
-                android:textSize="@dimen/detail_default_text_size"/>
-
-            <TextView
-                android:id="@+id/detail_type_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/detail_default_text_size"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/detail_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
-</RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

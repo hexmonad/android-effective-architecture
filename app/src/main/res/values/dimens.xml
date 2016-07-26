@@ -3,6 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="main_default_text_size">16sp</dimen>
+
+    <dimen name="detail_info_card_padding">20dp</dimen>
+    <dimen name="detail_info_card_padding_bottom">40dp</dimen>
     <dimen name="detail_default_text_size">16sp</dimen>
     <dimen name="detail_image_size">90dp</dimen>
 
